@@ -1,113 +1,113 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow strict-local
- */
-
 import React from 'react';
 import {
-  SafeAreaView,
   StyleSheet,
-  ScrollView,
-  View,
+  SafeAreaView,
   Text,
-  StatusBar,
+  TextInput,
+  Dimensions,
+  View,
+  TouchableOpacity,
 } from 'react-native';
 
-import {
-  Header,
-  LearnMoreLinks,
-  Colors,
-  DebugInstructions,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+const App = () => {
+  const [max, setMax] = React.useState(60);
+  const [count, setCount] = React.useState(0);
 
-const App: () => React$Node = () => {
+  const handlePressCalculate = () => {};
+
   return (
-    <>
-      <StatusBar barStyle="dark-content" />
-      <SafeAreaView>
-        <ScrollView
-          contentInsetAdjustmentBehavior="automatic"
-          style={styles.scrollView}>
-          <Header />
-          {global.HermesInternal == null ? null : (
-            <View style={styles.engine}>
-              <Text style={styles.footer}>Engine: Hermes</Text>
-            </View>
-          )}
-          <View style={styles.body}>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Step One</Text>
-              <Text style={styles.sectionDescription}>
-                Edit <Text style={styles.highlight}>App.js</Text> to change this
-                screen and then come back to see your edits.
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>See Your Changes</Text>
-              <Text style={styles.sectionDescription}>
-                <ReloadInstructions />
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Debug</Text>
-              <Text style={styles.sectionDescription}>
-                <DebugInstructions />
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Learn More</Text>
-              <Text style={styles.sectionDescription}>
-                Read the docs to discover what to do next:
-              </Text>
-            </View>
-            <LearnMoreLinks />
+    <SafeAreaView style={styles.container}>
+      <View style={styles.block}>
+        <View style={styles.inputGroup}>
+          <Text style={styles.header}>Text counter</Text>
+
+          <View>
+            <Text>Text:</Text>
+            <TextInput
+              style={styles.inputText}
+              multiline
+              placeholder="Enter text here"
+            />
           </View>
-        </ScrollView>
-      </SafeAreaView>
-    </>
+
+          <View style={styles.inputCountGroup}>
+            <Text>Max count:</Text>
+            <TextInput
+              style={styles.inputCount}
+              defaultValue={max.toString()}
+              keyboardType="numeric"
+              onChangeText={(text) => setMax(+text)}
+              maxLength={3}
+            />
+          </View>
+        </View>
+
+        <View style={styles.buttonGroup}>
+          <Text style={styles.counter}>Messages count: {count}</Text>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => {
+              handlePressCalculate();
+            }}>
+            <Text>Calculate</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+    </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
-  scrollView: {
-    backgroundColor: Colors.lighter,
+  container: {
+    flex: 1,
+    display: 'flex',
+    alignItems: 'center',
+    marginTop: 100,
   },
-  engine: {
-    position: 'absolute',
-    right: 0,
+  block: {},
+  header: {
+    textAlign: 'center',
+    paddingBottom: 30,
+    fontSize: 20,
   },
-  body: {
-    backgroundColor: Colors.white,
+  inputGroup: {
+    paddingVertical: 20,
+    flex: 7,
+    alignItems: 'center',
   },
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
+  buttonGroup: {
+    flex: 1,
+    display: 'flex',
+    alignItems: 'center',
   },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-    color: Colors.black,
+  inputText: {
+    borderWidth: 1,
+    width: Dimensions.get('window').width - 50,
+    marginBottom: 30,
+    height: 300,
+    borderRadius: 10,
+    padding: 10,
   },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-    color: Colors.dark,
+  inputCountGroup: {
+    flexDirection: 'row',
   },
-  highlight: {
-    fontWeight: '700',
+  inputCount: {
+    marginLeft: 10,
+    borderBottomColor: 'black',
+    borderBottomWidth: 1,
+    width: 25,
   },
-  footer: {
-    color: Colors.dark,
-    fontSize: 12,
-    fontWeight: '600',
-    padding: 4,
-    paddingRight: 12,
-    textAlign: 'right',
+  button: {
+    flex: 1,
+    borderColor: 'rgb(20, 102, 208)',
+    borderWidth: 2,
+    borderRadius: 10,
+    padding: 10,
+    width: Dimensions.get('window').width - 10,
+    alignItems: 'center',
+  },
+  counter: {
+    flex: 2,
   },
 });
 
