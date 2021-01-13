@@ -13,6 +13,14 @@ const App = () => {
   const [max, setMax] = React.useState(60);
   const [count, setCount] = React.useState(0);
 
+  const handleChangeCount = (newValue) => {
+    if (typeof newValue === 'number' && newValue > 20) {
+      setMax(newValue);
+    } else {
+      setMax(20);
+    }
+  };
+
   const handlePressCalculate = () => {};
 
   return (
@@ -36,7 +44,7 @@ const App = () => {
               style={styles.inputCount}
               defaultValue={max.toString()}
               keyboardType="numeric"
-              onChangeText={(text) => setMax(+text)}
+              onChangeText={(text) => handleChangeCount(+text)}
               maxLength={3}
             />
           </View>
@@ -95,7 +103,7 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     borderBottomColor: 'black',
     borderBottomWidth: 1,
-    width: 25,
+    width: 28,
   },
   button: {
     flex: 1,
@@ -103,7 +111,7 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderRadius: 10,
     padding: 10,
-    width: Dimensions.get('window').width - 10,
+    width: Dimensions.get('window').width - 50,
     alignItems: 'center',
   },
   counter: {
