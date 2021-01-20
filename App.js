@@ -12,20 +12,33 @@ import {
 const App = () => {
   const [max, setMax] = React.useState(60);
   const [count, setCount] = React.useState(0);
+  const [input, setInput] = React.useState('');
 
   const handleChangeCount = (newValue) => {
-    if (typeof newValue === 'number' && newValue > 20) {
-      setMax(newValue);
-    } else {
-      setMax(20);
-    }
+    typeof newValue === 'number' && newValue >= 30
+      ? setMax(newValue)
+      : setMax(30);
   };
 
-  const handlePressCalculate = () => {};
+  const handlePressCalculate = () => {
+    let arr = [];
+    let str = input;
+
+    while (str.length > max) {
+      let i = str.substring(0, max).lastIndexOf(' ');
+
+      arr.push(str.substring(0, i));
+      str = str.substring(i + 1);
+    }
+
+    arr.push(str);
+
+    return setCount(arr.length);
+  };
 
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.block}>
+      <View>
         <View style={styles.inputGroup}>
           <Text style={styles.header}>Text counter</Text>
 
@@ -35,6 +48,8 @@ const App = () => {
               style={styles.inputText}
               multiline
               placeholder="Enter text here"
+              value={input}
+              onChangeText={(text) => setInput(text)}
             />
           </View>
 
@@ -42,7 +57,7 @@ const App = () => {
             <Text>Max count:</Text>
             <TextInput
               style={styles.inputCount}
-              defaultValue={max.toString()}
+              value={max.toString()}
               keyboardType="numeric"
               onChangeText={(text) => handleChangeCount(+text)}
               maxLength={3}
@@ -72,7 +87,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginTop: 100,
   },
-  block: {},
   header: {
     textAlign: 'center',
     paddingBottom: 30,
@@ -107,8 +121,8 @@ const styles = StyleSheet.create({
   },
   button: {
     flex: 1,
-    borderColor: 'rgb(20, 102, 208)',
-    borderWidth: 2,
+    borderColor: 'rgb(45, 130, 230)',
+    borderWidth: 3,
     borderRadius: 10,
     padding: 10,
     width: Dimensions.get('window').width - 50,
